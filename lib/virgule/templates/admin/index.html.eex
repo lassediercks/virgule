@@ -1,0 +1,22 @@
+<h1>Add Product</h1>
+<form action="/<%= adminroute %>/product/add" method="post">
+  <label for="data">Product:</label>
+  <input type="text" id="data" name="name">
+  <input type="text" id="data" name="price">
+  <input type="submit" value="Add Product">
+</form>
+<%= for product <- products do %>
+  <li>
+    <a href="<%= adminroute %>/product/<%= product.id %>">Product ID: <%= product.id %></a>
+    Name: <%= product.name %>
+    Price:
+    <form action="/<%= adminroute %>/product/update/<%= product.id %>" method="post">
+      <input type="text" name="price" value="<%= product.price %>" />
+      <input type="submit" value="Update">
+    </form>
+    <%= product.slug %>
+  </li>
+  <form action="/<%= adminroute %>/product/delete/<%= product.id %>" method="post">
+    <input type="submit" value="Delete">
+  </form>
+<% end %>
