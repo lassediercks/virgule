@@ -1,12 +1,14 @@
 defmodule Virgule.Router do
   use Plug.Router
 
+  plug(Plug.Static, at: "/css", from: "css")
   plug(:match)
   plug(:dispatch)
 
   @adminroute Virgule.Config.adminroute()
 
   Plug.Router.get "/" do
+    IO.puts("/ route")
     Virgule.Web.home(conn)
   end
 
