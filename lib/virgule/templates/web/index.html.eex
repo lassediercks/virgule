@@ -1,3 +1,0 @@
-<%= for product <- products do %>
-  <a href="<%= product.slug %>"><%= product.name %></a>
-<% end %>

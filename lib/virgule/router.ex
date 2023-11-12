@@ -8,35 +8,26 @@ defmodule Virgule.Router do
   @adminroute Virgule.Config.adminroute()
 
   Plug.Router.get "/" do
-    IO.puts("/ route")
-    Virgule.Web.home(conn)
-  end
-
-  Plug.Router.get @adminroute do
     Virgule.Admin.home(conn)
   end
 
-  Plug.Router.get "#{@adminroute}/product/:id" do
+  Plug.Router.get "/product/:id" do
     Virgule.Admin.product(conn, id)
   end
 
-  Plug.Router.get "/:slug" do
-    Virgule.Web.product(conn, slug)
-  end
-
-  Plug.Router.post "#{@adminroute}/product/add" do
+  Plug.Router.post "/product/add" do
     Virgule.Admin.add_product(conn)
   end
 
-  Plug.Router.post "#{@adminroute}/product/update/:id" do
+  Plug.Router.post "/product/update/:id" do
     Virgule.Admin.update_product(conn, id)
   end
 
-  Plug.Router.post "#{@adminroute}/product/delete/:id" do
+  Plug.Router.post "/product/delete/:id" do
     Virgule.Admin.delete_product(conn, id)
   end
 
   Plug.Router.match _ do
-    Virgule.Web.fourofour(conn)
+    Plug.Conn.send_resp(conn, 404, "Not Found")
   end
 end
