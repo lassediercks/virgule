@@ -7,16 +7,16 @@
 </form>
 <%= for product <- products do %>
   <li>
-    <a href="product/<%= product.id %>">Product ID: <%= product.id %></a>
+    <a href="products/<%= product.id %>">Product ID: <%= product.id %></a>
     Name: <%= product.name %>
     Price:
-    <form action="/product/update/<%= product.id %>" method="post">
+    <form action="/products/update/<%= product.id %>" method="post">
       <input type="text" name="price" value="<%= product.price %>" />
       <input type="submit" value="Update">
     </form>
     <%= product.slug %>
   </li>
-  <form action="/product/delete/<%= product.id %>" method="post">
+  <form action="/products/delete/<%= product.id %>" method="post">
     <input type="submit" value="Delete">
   </form>
 <% end %>

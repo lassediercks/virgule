@@ -5,29 +5,17 @@ defmodule Virgule.Router do
   plug(:match)
   plug(:dispatch)
 
+  @apiroute Application.compile_env(:virgule, :API_ROUTE)
   @adminroute Virgule.Config.adminroute()
 
+  forward("/products", to: Virgule.ProductController)
+
   Plug.Router.get "/" do
+    IO.inspect(@apiroute)
     Virgule.Admin.home(conn)
   end
 
-  Plug.Router.get "/product/:id" do
-    Virgule.Admin.product(conn, id)
-  end
-
-  Plug.Router.post "/product/add" do
-    Virgule.Admin.add_product(conn)
-  end
-
-  Plug.Router.post "/product/update/:id" do
-    Virgule.Admin.update_product(conn, id)
-  end
-
-  Plug.Router.post "/product/delete/:id" do
-    Virgule.Admin.delete_product(conn, id)
-  end
-
-  Plug.Router.match _ do
+  match _ do
     Plug.Conn.send_resp(conn, 404, "Not Found")
   end
 end

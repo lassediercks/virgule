@@ -7,3 +7,4 @@ config :virgule, Virgule.Repo,
 config :virgule, ecto_repos: [Virgule.Repo]
 config :virgule, PORT: System.get_env("PORT")
 config :virgule, ADMIN_PATH: "virgule"
+config :virgule, API_ROUTE: "api"
