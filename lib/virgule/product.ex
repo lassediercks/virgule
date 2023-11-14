@@ -1,7 +1,7 @@
 defmodule Virgule.Product do
   use Ecto.Schema
 
-  @derive {Poison.Encoder, only: [:name, :price, :slug, :id]}
+  @derive {Jason.Encoder, only: [:name, :price, :slug, :id]}
 
   schema "products" do
     field(:name, :string)
