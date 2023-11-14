@@ -23,6 +23,7 @@ defmodule Virgule.MixProject do
   defp deps do
     [
       {:exsync, "~> 0.2", only: :dev},
+      {:poison, "~> 5.0"},
       {:postgrex, ">= 0.0.0"},
       {:ecto_sql, "~> 3.0"},
       {:plug_cowboy, "~> 2.0"}

@@ -1,5 +1,5 @@
 <h1>Add Product</h1>
-<form action="/<%= adminroute %>/product/add" method="post">
+<form action="/products/add" method="post">
   <label for="data">Product:</label>
   <input type="text" id="data" name="name">
   <input type="text" id="data" name="price">

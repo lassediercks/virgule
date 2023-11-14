@@ -6,9 +6,9 @@ defmodule Virgule.Router do
   plug(:dispatch)
 
   @apiroute Application.compile_env(:virgule, :API_ROUTE)
-  @adminroute Virgule.Config.adminroute()
 
-  forward("/products", to: Virgule.ProductController)
+  forward("/products", to: Virgule.ProductRouter)
+  forward(@apiroute, to: Virgule.ApiController)
 
   Plug.Router.get "/" do
     IO.inspect(@apiroute)

@@ -5,3 +5,13 @@ html {
 body {
   padding: 3em;
 }
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #141418;
+    color: #fff;
+  }
+  a {
+    color: rgb(126, 208, 252);
+  }
+}

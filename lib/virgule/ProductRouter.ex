@@ -1,4 +1,4 @@
-defmodule Virgule.ProductController do
+defmodule Virgule.ProductRouter do
   @moduledoc """
   Basic Products Dispatch Unit
   """
@@ -6,8 +6,6 @@ defmodule Virgule.ProductController do
 
   plug(:match)
   plug(:dispatch)
-
-  @apiroute Application.compile_env(:virgule, :API_ROUTE)
 
   get "/:id" do
     Virgule.Admin.product(conn, id)
