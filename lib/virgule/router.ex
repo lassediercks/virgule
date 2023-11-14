@@ -12,7 +12,7 @@ defmodule Virgule.Router do
 
   Plug.Router.get "/" do
     IO.inspect(@apiroute)
-    Virgule.Admin.home(conn)
+    Virgule.AdminController.home(conn)
   end
 
   match _ do

@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>My little Shop</title>
-  </head>
-  <body>
-    <h1><%= product.name %></h1>
-  </body>
-</html>
+<h1><%= product.name %></h1>
+<p><%= product.price %></p>
+<p><%= product.slug %></p>
+<h2>Style Variants</h2>
+<%= for variant <- product.style_variants do  %>
+  <p><%= variant.name %></p>
+  <p><%= variant.price %></p>
+<% end %>
+<h2>Size Variants</h2>
+<%= for variant <- product.size_variants do  %>
+  <p><%= variant.name %></p>
+  <p><%= variant.price %></p>
+<% end %>

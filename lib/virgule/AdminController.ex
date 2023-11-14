@@ -1,4 +1,4 @@
-defmodule Virgule.Admin do
+defmodule Virgule.AdminController do
   @template_dir "lib/virgule/templates/admin"
   @adminroute Virgule.Config.adminroute()
 
@@ -24,8 +24,11 @@ defmodule Virgule.Admin do
     )
   end
 
+  @spec product(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def product(conn, id) do
-    render(conn, "product.html", product: Virgule.Product.get(id), adminroute: @adminroute)
+    product = Virgule.Product.get(id) |> Virgule.Repo.preload([:style_variants, :size_variants])
+    IO.inspect(product)
+    render(conn, "product.html", product: product, adminroute: @adminroute)
   end
 
   def add_product(conn) do

@@ -8,18 +8,18 @@ defmodule Virgule.ProductRouter do
   plug(:dispatch)
 
   get "/:id" do
-    Virgule.Admin.product(conn, id)
+    Virgule.AdminController.product(conn, id)
   end
 
   post "/add" do
-    Virgule.Admin.add_product(conn)
+    Virgule.AdminController.add_product(conn)
   end
 
   post "/update/:id" do
-    Virgule.Admin.update_product(conn, id)
+    Virgule.AdminController.update_product(conn, id)
   end
 
   post "/delete/:id" do
-    Virgule.Admin.delete_product(conn, id)
+    Virgule.AdminController.delete_product(conn, id)
   end
 end

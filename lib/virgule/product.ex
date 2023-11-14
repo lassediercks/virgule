@@ -1,12 +1,15 @@
 defmodule Virgule.Product do
+  alias Virgule.VariantController
   use Ecto.Schema
 
-  @derive {Jason.Encoder, only: [:name, :price, :slug, :id]}
+  @derive {Jason.Encoder, only: [:name, :price, :slug, :id, :style_variants, :size_variants]}
 
   schema "products" do
     field(:name, :string)
     field(:price, :float)
     field(:slug, :string)
+    has_many(:style_variants, Virgule.StyleVariants, foreign_key: :product_id)
+    has_many(:size_variants, Virgule.SizeVariants, foreign_key: :product_id)
   end
 
   @spec createSlug(binary()) :: binary()

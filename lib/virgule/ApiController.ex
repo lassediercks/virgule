@@ -10,7 +10,11 @@ defmodule Virgule.ApiController do
   end
 
   get "/products/:id" do
-    product = Virgule.Product.get(id) |> Jason.encode!()
+    product =
+      Virgule.Product.get(id)
+      |> Virgule.Repo.preload([:style_variants, :size_variants])
+      |> Jason.encode!()
+
     Plug.Conn.send_resp(conn, 200, product)
   end
 end
