@@ -61,15 +61,19 @@ defmodule Virgule do
       GenServer.call(__MODULE__, :get_amount)
     end
 
+    def update_quantity(id, quant) when is_integer(quant) and quant > 0 do
+      GenServer.call(__MODULE__, {:update_quantity, id, quant})
+    end
+
     # Server Callbacks
 
     def init(initial_state) do
       {:ok, initial_state}
     end
 
-    def handle_call({:add, %Product{} = product}, _from, state) do
+    def handle_call({:add, %Product{id: id} = product}, _from, state) do
       # Add item or increase count
-      new_state = Map.update(state, product.id, [product], &[product | &1])
+      new_state = Map.update(state, id, {product, 1}, fn {prod, qty} -> {prod, qty + 1} end)
       {:reply, :ok, new_state}
     end
 
@@ -84,6 +88,20 @@ defmodule Virgule do
         |> Enum.reduce(0.0, fn %Product{price: price}, acc -> acc + price end)
 
       {:reply, amount, amount}
+    end
+
+    def handle_call({:update_quantity, id, quant}, _from, state) do
+      new_state =
+        case Map.get(state, id) do
+          {product, old_quantity} ->
+            Map.put(state, id, {product, quant + old_quantity})
+
+          # If the product doesn't exist, maintain the existing state
+          nil ->
+            state
+        end
+
+      {:reply, :ok, new_state}
     end
   end
 end

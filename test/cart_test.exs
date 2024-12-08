@@ -13,8 +13,20 @@ defmodule CartTest do
     product = %Product{id: 1, name: "Book", price: 10.0}
     :ok = Cart.add_item(product)
 
-    expected_cart_content = %{1 => [product]}
+    expected_cart_content = %{1 => {product, 1}}
     assert Cart.get_contents() == expected_cart_content
+  end
+
+  test "increase quantity of cart item" do
+    product = %Product{id: 1, name: "Book", price: 10.0}
+    :ok = Cart.add_item(product)
+
+    expected_cart_content = %{1 => [product]}
+    Cart.update_quantity(1, 5)
+
+    assert Cart.get_contents() == %{
+             1 => {%Product{id: 1, name: "Book", price: 10.0}, 6}
+           }
   end
 
   test "retrieve empty cart contents" do
@@ -40,5 +52,13 @@ defmodule CartTest do
     :ok = Cart.add_item(product2)
 
     assert Cart.get_amount() == 11.5
+  end
+
+  test "get cart amount with 1 product" do
+    product1 = %Product{id: 1, name: "Book", price: 10.0}
+
+    :ok = Cart.add_item(product1)
+
+    assert Cart.get_amount() == 10
   end
 end
