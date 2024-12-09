@@ -84,8 +84,9 @@ defmodule Virgule do
     def handle_call(:get_amount, _from, state) do
       amount =
         state
-        |> Enum.flat_map(fn {_id, products} -> products end)
-        |> Enum.reduce(0.0, fn %Product{price: price}, acc -> acc + price end)
+        |> Enum.reduce(0.0, fn {_id, {%Product{price: price}, quantity}}, acc ->
+          acc + price * quantity
+        end)
 
       {:reply, amount, amount}
     end

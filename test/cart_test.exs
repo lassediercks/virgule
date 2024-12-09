@@ -21,7 +21,6 @@ defmodule CartTest do
     product = %Product{id: 1, name: "Book", price: 10.0}
     :ok = Cart.add_item(product)
 
-    expected_cart_content = %{1 => [product]}
     Cart.update_quantity(1, 5)
 
     assert Cart.get_contents() == %{
@@ -40,7 +39,7 @@ defmodule CartTest do
     :ok = Cart.add_item(product1)
     :ok = Cart.add_item(product2)
 
-    expected_cart_content = %{1 => [product1], 2 => [product2]}
+    expected_cart_content = %{1 => {product1, 1}, 2 => {product2, 1}}
     assert Cart.get_contents() == expected_cart_content
   end
 
@@ -50,8 +49,9 @@ defmodule CartTest do
 
     :ok = Cart.add_item(product1)
     :ok = Cart.add_item(product2)
+    :ok = Cart.add_item(product2)
 
-    assert Cart.get_amount() == 11.5
+    assert Cart.get_amount() == 13
   end
 
   test "get cart amount with 1 product" do
